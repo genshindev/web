@@ -4,6 +4,7 @@ import Head from 'next/head';
  * Licensed under the Open Software License version 3.0
  */
 
+import Head from 'next/head';
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
