@@ -1,3 +1,3 @@
-# Genshin.dev Frontend
+# genshin.dev Frontend
 
 More information coming soon...
