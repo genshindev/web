@@ -24,12 +24,14 @@ export default function Home() {
         </div>
       </main>
       <footer className={styles.footer}>
-        genshin.dev isn’t endorsed by miHoYo and doesn’t reflect the views or
-        opinions of miHoYo or anyone officially involved in producing or
-        managing Genshin Impact.
-        <br />
-        Genshin Impact and miHoYo are trademarks or registered trademarks of
-        miHoYo. Genshin Impact © miHoYo.
+        <p>
+          genshin.dev isn’t endorsed by miHoYo and doesn’t reflect the views or
+          opinions of miHoYo or anyone officially involved in producing or
+          managing Genshin Impact.
+          <br />
+          Genshin Impact and miHoYo are trademarks or registered trademarks of
+          miHoYo. Genshin Impact © miHoYo.
+        </p>
       </footer>
     </div>
   );
