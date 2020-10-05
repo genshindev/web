@@ -13,11 +13,6 @@ import twitterIcon from '@iconify/icons-mdi/twitter';
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>genshin.dev - Coming Soon</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-
       <main className={styles.main}>
         <h1 className={styles.title}>genshin.dev</h1>
         <h2 className={styles.subtitle}>Coming Soon</h2>
