@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2020 genshin.dev
+ * Licensed under the Open Software License version 3.0
+ */
+
+.main {
+  .title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .subtitle {
+    font-size: 4.25rem;
+    font-weight: normal;
+  }
+
+  .socialLinks {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 2rem;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+  width: 600px;
+}
