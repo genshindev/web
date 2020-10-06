@@ -3,23 +3,21 @@
  * Licensed under the Open Software License version 3.0
  */
 
-import { PureComponent } from 'react';
 import { InlineIcon } from '@iconify/react';
 import styles from '../styles/SocialLink.module.scss';
 
-type SocialLinkProps = {
+interface SocialLinkProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
   href: string;
-};
-
-export class SocialLink extends PureComponent<SocialLinkProps> {
-  render() {
-    const { icon, href } = this.props;
-
-    return (
-      <a href={href} className={styles.socialButton}>
-        <InlineIcon className={styles.icon} icon={icon} />
-      </a>
-    );
-  }
 }
+
+const SocialLink = ({ href, icon }: SocialLinkProps) => (
+  <a href={href} className={styles.socialButton}>
+    <InlineIcon className={styles.icon} icon={icon} />
+  </a>
+);
+
+export { SocialLink };
+
+export default SocialLink;
