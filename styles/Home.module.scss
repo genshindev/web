@@ -3,6 +3,9 @@
  * Licensed under the Open Software License version 3.0
  */
 
+@import './core/breakpoints.scss';
+@import './core/mixins';
+
 .container {
   display: flex;
   justify-content: center;
@@ -12,23 +15,23 @@
 
 .main {
   .title {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
 
-    @media (max-width: 600px) {
-      font-size: 2.5rem;
+    @include lg {
+      font-size: 4rem;
     }
   }
 
   .subtitle {
-    font-size: 4.25rem;
+    font-size: 1.5rem;
     font-weight: normal;
     text-align: center;
 
-    @media (max-width: 600px) {
-      font-size: 1.5rem;
+    @include lg {
+      font-size: 4.25rem;
     }
   }
 
@@ -44,11 +47,6 @@
   position: absolute;
   margin-bottom: 1rem;
   bottom: 0;
-
   text-align: center;
   max-width: 600px;
-
-  @media (max-width: 600px) {
-    left: auto;
-  }
 }
