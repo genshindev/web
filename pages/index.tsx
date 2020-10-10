@@ -5,6 +5,7 @@
 
 import githubIcon from '@iconify/icons-mdi/github';
 import twitterIcon from '@iconify/icons-mdi/twitter';
+import discordIcon from '@iconify/icons-mdi/discord';
 
 import { SocialLink } from '../components/SocialLink';
 import styles from '../styles/Home.module.scss';
@@ -17,6 +18,7 @@ const Home = () => (
       <div className={styles.socialLinks}>
         <SocialLink href="https://github.com/genshindev" icon={githubIcon} />
         <SocialLink href="https://twitter.com/genshindev" icon={twitterIcon} />
+        <SocialLink href="https://discord.gg/M8t9nFG" icon={discordIcon} />
       </div>
     </main>
     <footer className={styles.footer}>
