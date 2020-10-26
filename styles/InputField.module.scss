@@ -1,0 +1,28 @@
+.inputField {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    color: #bebbd2;
+  }
+
+  .input {
+    font: inherit;
+    width: min(400px, 80vw);
+    padding: 10px;
+    background-color: #4927ab;
+    border: none;
+    color: #bebbd2;
+
+    margin-top: 4px;
+
+    &::placeholder {
+      opacity: 0.5;
+    }
+
+    &:focus {
+      border: 2px solid #bebbd2;
+      padding: 8px;
+    }
+  }
+}

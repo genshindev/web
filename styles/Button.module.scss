@@ -1,0 +1,19 @@
+.button {
+  font: inherit;
+  font-weight: bold;
+  min-width: 150px;
+  padding: 10px;
+  background: #4927ab;
+  color: #bebbd2;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #433499;
+  }
+  
+  &:focus {
+    border: 2px solid #bebbd2;
+    padding: 8px;
+  }
+}
