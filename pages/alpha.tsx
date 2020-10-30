@@ -1,17 +1,24 @@
+import React, { useState } from 'react';
 import Head from 'next/head';
-import React, { forwardRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import Anchor from '../components/Anchor';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 
 import styles from '../styles/Alpha.module.scss';
 
-export default function Alpha() {
-  const [done, setDone] = useState(false);
-  const { register, setValue, handleSubmit } = useForm();
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+}
 
-  const onSubmit = (data) => setDone(true);
+const Alpha = () => {
+  const [done, setDone] = useState(false);
+  const { register, errors, handleSubmit } = useForm<FormData>();
+
+  const onSubmit = () => setDone(true);
 
   return (
     <div className={styles.container}>
@@ -51,23 +58,29 @@ export default function Alpha() {
             >
               <div className={styles.inputs}>
                 <InputField
-                  register={register}
-                  setValue={setValue}
+                  ref={register({ required: true })}
+                  error={errors.username}
+                  errorMessage="Invalid username."
                   autoComplete="username"
                   name="username"
                   label="Username"
                 />
                 <InputField
-                  register={register}
-                  setValue={setValue}
+                  ref={register({
+                    required: true,
+                    pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+                  })}
+                  error={errors.email}
+                  errorMessage="Invalid E-Mail Address."
                   autoComplete="email"
                   type="email"
                   name="email"
                   label="E-Mail"
                 />
                 <InputField
-                  register={register}
-                  setValue={setValue}
+                  ref={register({ required: true, minLength: 8 })}
+                  error={errors.password}
+                  errorMessage="Must be at least 8 characters long."
                   autoComplete="new-password"
                   type="password"
                   name="password"
@@ -81,4 +94,6 @@ export default function Alpha() {
       )}
     </div>
   );
-}
+};
+
+export default Alpha;
