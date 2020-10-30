@@ -1,21 +1,20 @@
-import { HTMLAttributes, PureComponent } from 'react';
+import React, { HTMLAttributes } from 'react';
 import Link from 'next/link';
 
 import styles from '../styles/Anchor.module.scss';
 
-type AnchorProps = {
+interface AnchorProps {
   href: string;
   label?: string;
-} & HTMLAttributes<HTMLAnchorElement>;
+}
 
-export default function Anchor({
-  label,
+const Anchor = ({  label,
   onClick,
   children,
   href,
   className,
   ...props
-}: AnchorProps) {
+}: AnchorProps & HTMLAttributes<HTMLAnchorElement>) => {
   const external = href && !href.startsWith('/');
 
   const link = (
@@ -33,3 +32,5 @@ export default function Anchor({
   if (href) return <Link href={href}>{link}</Link>;
   else return link;
 }
+
+export default Anchor;

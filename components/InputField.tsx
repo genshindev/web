@@ -1,46 +1,58 @@
-import React, { InputHTMLAttributes, Ref, useEffect } from 'react';
-import { DeepMap, FieldError } from 'react-hook-form/dist/types';
+import React, { InputHTMLAttributes, RefObject, useEffect } from 'react';
+import { FieldError } from 'react-hook-form';
 
 import styles from '../styles/InputField.module.scss';
 
-type InputFieldProps = {
+interface InputFieldProps {
   label: string;
+  error?: FieldError;
+  errorMessage?: string;
   required?: boolean;
-  setValue: any;
-  register: any;
-} & InputHTMLAttributes<HTMLInputElement>;
-
-export default function InputField({
-  label,
-  name,
-  required,
-  setValue,
-  className,
-  register,
-  ...props
-}: InputFieldProps) {
-  const labelId = name + '-label';
-
-  useEffect(() => {
-    register({ name }, { required });
-  }, []);
-
-  return (
-    <div className={styles.inputField}>
-      <label className={styles.label} title={label} id={labelId} htmlFor={name}>
-        {label}
-      </label>
-      <input
-        className={[styles.input, className].join(' ')}
-        name={name}
-        placeholder={label}
-        onChange={(event) => setValue(event.target.name, event.target.value)}
-        aria-labelledby={labelId}
-        aria-label={label}
-        required={required}
-        title={label}
-        {...props}
-      />
-    </div>
-  );
 }
+
+const InputField = React.forwardRef<
+  HTMLInputElement,
+  InputFieldProps & InputHTMLAttributes<HTMLInputElement>
+>(
+  (
+    {
+      label,
+      name,
+      error,
+      required,
+      errorMessage,
+      className,
+      ...props
+    }: InputFieldProps & InputHTMLAttributes<HTMLInputElement>,
+    ref: RefObject<HTMLInputElement>,
+  ) => {
+    const labelId = name + '-label';
+
+    return (
+      <div className={styles.inputField}>
+        <label
+          className={styles.label}
+          title={label}
+          id={labelId}
+          htmlFor={name}
+        >
+          {label}
+        </label>
+        <input
+          className={[styles.input, className].join(' ')}
+          name={name}
+          ref={ref}
+          placeholder={label}
+          aria-labelledby={labelId}
+          aria-label={label}
+          required={required}
+          title={label}
+          {...props}
+        />
+        {error && <span className={styles.error}>{errorMessage}</span>}
+      </div>
+    );
+  },
+);
+
+export default InputField;

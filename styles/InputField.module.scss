@@ -1,6 +1,7 @@
 .inputField {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 
   .label {
     color: #bebbd2;
@@ -14,8 +15,6 @@
     border: none;
     color: #bebbd2;
 
-    margin-top: 4px;
-
     &::placeholder {
       opacity: 0.5;
     }
@@ -24,5 +23,9 @@
       border: 2px solid #bebbd2;
       padding: 8px;
     }
+  }
+
+  .error {
+    color: #c32f27;
   }
 }
