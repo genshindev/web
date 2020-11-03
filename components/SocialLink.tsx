@@ -13,7 +13,7 @@ interface SocialLinkProps {
 }
 
 const SocialLink = ({ href, icon }: SocialLinkProps) => (
-  <a href={href} className={styles.socialButton} target='_blank'>
+  <a href={href} className={styles.socialButton} target="_blank">
     <InlineIcon className={styles.icon} icon={icon} />
   </a>
 );
