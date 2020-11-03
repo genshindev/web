@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 genshin.dev
+ * Licensed under the Open Software License version 3.0
+ */
+
 .button {
   font: inherit;
   font-weight: bold;
@@ -11,7 +16,7 @@
   &:hover {
     background: #433499;
   }
-  
+
   &:focus {
     border: 2px solid #bebbd2;
     padding: 8px;

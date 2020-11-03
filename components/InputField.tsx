@@ -1,4 +1,9 @@
-import React, { InputHTMLAttributes, RefObject, useEffect } from 'react';
+/*
+ * Copyright (c) 2020 genshin.dev
+ * Licensed under the Open Software License version 3.0
+ */
+
+import React, { InputHTMLAttributes, RefObject } from 'react';
 import { FieldError } from 'react-hook-form';
 
 import styles from '../styles/InputField.module.scss';

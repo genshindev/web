@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) 2020 genshin.dev
+ * Licensed under the Open Software License version 3.0
+ */
+
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import Anchor from '../components/Anchor';
 import Button from '../components/Button';
@@ -14,11 +21,29 @@ interface FormData {
   password: string;
 }
 
+const schema = yup.object().shape({
+  username: yup.string().required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(8).required(),
+});
+
 const Alpha = () => {
   const [done, setDone] = useState(false);
-  const { register, errors, handleSubmit } = useForm<FormData>();
+  const { register, errors, handleSubmit } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
 
-  const onSubmit = () => setDone(true);
+  const onSubmit = async (values: FormData) => {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        API_WEB_SIGNUP_TOKEN: process.env.NEXT_PUBLIC_API_WEB_SIGNUP_TOKEN,
+      },
+      body: JSON.stringify(values),
+    });
+    setDone(true);
+  };
 
   return (
     <div className={styles.container}>
@@ -30,9 +55,10 @@ const Alpha = () => {
         <header className={styles.header}>
           <h1 className={styles.title}>👌 You're all set and ready to go</h1>
           <h2 className={styles.subtitle}>
-            You can now use our API by following the pinned instructions in the{' '}
-            <span className={styles.channel}>#alpha-test</span> channel on our{' '}
-            <Anchor href="https://discord.gg/M8t9nFG">Discord Server</Anchor>{' '}
+            An email has been sent to you for activation of your account, You
+            can now use our API by following the pinned instructions in the
+            <span className={styles.channel}>#alpha-test</span> channel on our
+            <Anchor href="https://discord.gg/M8t9nFG">Discord Server</Anchor>
             (and don't worry, real documentation will follow once we are out of
             alpha)!
           </h2>
@@ -51,14 +77,10 @@ const Alpha = () => {
           </header>
 
           <main>
-            <form
-              method="POST"
-              className={styles.form}
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.inputs}>
                 <InputField
-                  ref={register({ required: true })}
+                  ref={register}
                   error={errors.username}
                   errorMessage="Invalid username."
                   autoComplete="username"
@@ -66,10 +88,7 @@ const Alpha = () => {
                   label="Username"
                 />
                 <InputField
-                  ref={register({
-                    required: true,
-                    pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-                  })}
+                  ref={register}
                   error={errors.email}
                   errorMessage="Invalid E-Mail Address."
                   autoComplete="email"
@@ -78,7 +97,7 @@ const Alpha = () => {
                   label="E-Mail"
                 />
                 <InputField
-                  ref={register({ required: true, minLength: 8 })}
+                  ref={register}
                   error={errors.password}
                   errorMessage="Must be at least 8 characters long."
                   autoComplete="new-password"
