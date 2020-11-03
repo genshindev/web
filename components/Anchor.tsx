@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 genshin.dev
+ * Licensed under the Open Software License version 3.0
+ */
+
 import React, { HTMLAttributes } from 'react';
 import Link from 'next/link';
 
@@ -8,7 +13,8 @@ interface AnchorProps {
   label?: string;
 }
 
-const Anchor = ({  label,
+const Anchor = ({
+  label,
   onClick,
   children,
   href,
@@ -29,8 +35,11 @@ const Anchor = ({  label,
     </a>
   );
 
-  if (href) return <Link href={href}>{link}</Link>;
-  else return link;
-}
+  if (href) {
+    return <Link href={href}>{link}</Link>;
+  }
+
+  return link;
+};
 
 export default Anchor;
