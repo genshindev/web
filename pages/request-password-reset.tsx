@@ -9,26 +9,21 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import Anchor from '../components/Anchor';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 
 import styles from '../styles/Alpha.module.scss';
 
 interface FormData {
-  username: string;
   email: string;
-  password: string;
 }
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
   email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
 });
 
-const Alpha = () => {
-  const [registered, setRegistered] = useState(false);
+const RequestPasswordReset = () => {
+  const [emailSent, setEmailSent] = useState(false);
   const [apiError, setApiError] = useState<boolean | Record<string, any>>(
     false,
   );
@@ -42,21 +37,16 @@ const Alpha = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/signup`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(values),
-        },
+        `${
+          process.env.NEXT_PUBLIC_BASE_API_URL
+        }/user/requestResetPassword?email=${encodeURIComponent(values.email)}`,
       );
 
       if (!response.ok) {
         throw response;
       }
 
-      return setRegistered(true);
+      return setEmailSent(true);
     } catch (err) {
       return setApiError(err.json ? await err.json() : true);
     }
@@ -65,31 +55,24 @@ const Alpha = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>genshin.dev - Super Secret Alpha Sign-Up</title>
-        <meta name="description" content="Super secret alpha sign-up page" />
+        <title>genshin.dev - Request Password Reset</title>
+        <meta name="description" content="Request Password Reset page" />
       </Head>
-      {registered ? (
+      {emailSent ? (
         <header className={styles.header}>
-          <h1 className={styles.title}>👌 You're all set and ready to go</h1>
+          <h1 className={styles.title}>👌 Awesome</h1>
           <h2 className={styles.subtitle}>
-            An email has been sent to you for activation of your account, You
-            can now use our API by following the pinned instructions in the
-            <span className={styles.channel}>#alpha-test</span> channel on our
-            <Anchor href="https://discord.gg/M8t9nFG">Discord Server</Anchor>
-            (and don't worry, real documentation will follow once we are out of
-            alpha)!
+            We have sent you an email with further instructions to reset your
+            password, hope this doesnt happen again :)
           </h2>
         </header>
       ) : (
         <>
           <header className={styles.header}>
-            <h1 className={styles.title}>
-              Welcome to our more or less secret alpha sign-up page 👀
-            </h1>
+            <h1 className={styles.title}>Lost your password? 👀</h1>
             <h2 className={styles.subtitle}>
-              If you see this page you’ve been either given a link to it by us,
-              or just poked through the code of our website on GitHub. Either
-              way, welcome to the alpha test!
+              Enter your email below and we can start the process to resetting
+              it!
             </h2>
             {apiError ? (
               typeof apiError === 'object' && apiError.error ? (
@@ -108,14 +91,6 @@ const Alpha = () => {
               <div className={styles.inputs}>
                 <InputField
                   ref={register}
-                  error={errors.username}
-                  errorMessage="Invalid username."
-                  autoComplete="username"
-                  name="username"
-                  label="Username"
-                />
-                <InputField
-                  ref={register}
                   error={errors.email}
                   errorMessage="Invalid E-Mail Address."
                   autoComplete="email"
@@ -123,17 +98,8 @@ const Alpha = () => {
                   name="email"
                   label="E-Mail"
                 />
-                <InputField
-                  ref={register}
-                  error={errors.password}
-                  errorMessage="Must be at least 8 characters long."
-                  autoComplete="new-password"
-                  type="password"
-                  name="password"
-                  label="Password"
-                />
               </div>
-              <Button type="submit">Register</Button>
+              <Button type="submit">Reset Password</Button>
             </form>
           </main>
         </>
@@ -142,4 +108,4 @@ const Alpha = () => {
   );
 };
 
-export default Alpha;
+export default RequestPasswordReset;
