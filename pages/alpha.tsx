@@ -73,9 +73,9 @@ const Alpha = () => {
           <h1 className={styles.title}>👌 You're all set and ready to go</h1>
           <h2 className={styles.subtitle}>
             An email has been sent to you for activation of your account, You
-            can now use our API by following the pinned instructions in the
-            <span className={styles.channel}>#alpha-test</span> channel on our
-            <Anchor href="https://discord.gg/M8t9nFG">Discord Server</Anchor>
+            can now use our API by following the pinned instructions in the{' '}
+            <span className={styles.channel}>#alpha-test</span> channel on our{' '}
+            <Anchor href="https://discord.gg/M8t9nFG">Discord Server</Anchor>{' '}
             (and don't worry, real documentation will follow once we are out of
             alpha)!
           </h2>
