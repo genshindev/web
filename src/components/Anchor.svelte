@@ -7,7 +7,12 @@ Licensed under the Open Software License version 3.0
   export let label: string;
 </script>
 
-<a {href} {label} target={href && !href.startsWith('/') ? '_blank' : undefined}>
+<a
+  {href}
+  {label}
+  rel="noopener"
+  target={href && !href.startsWith('/') ? '_blank' : undefined}
+>
   <slot />
 </a>
 
