@@ -13,7 +13,7 @@ Licensed under the Open Software License version 3.0
 <main>
   <p>
     Explore the
-    <Anchor href="https://api.genshin.dev/" label="genshin.dev API GitHub">
+    <Anchor href="https://genshin.jmp.blue" label="genshin.dev API GitHub">
       genshin.dev API via your browser
     </Anchor>
   </p>
